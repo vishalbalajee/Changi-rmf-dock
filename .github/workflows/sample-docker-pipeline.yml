@@ -6,11 +6,11 @@ name: RMF Sample Docker Pipeline
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths:
       - "sample-app/**"
   pull_request:
-    branches: [master]
+    branches: [main]
     paths:
       - "sample-app/**"
 

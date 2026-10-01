@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rmf-core
-  namespace: rmf
+  namespace: rmf 
   annotations:
     # Argo CD Image Updater watches this Docker Hub repo and rewrites
     # the tag below whenever the GitHub Actions pipeline pushes a new image.

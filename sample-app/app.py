@@ -5,7 +5,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/plain")
         self.end_headers()
-        self.wfile.write(b"rmf-core sample pipeline test OK\n")
+        self.wfile.write(b"rmf-core sample pipeline test v2 OK\n")
 
 if __name__ == "__main__":
     HTTPServer(("0.0.0.0", 8080), Handler).serve_forever()

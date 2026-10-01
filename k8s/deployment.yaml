@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rmf-core
+  namespace: rmf
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: rmf-core=vishalbalajee14/rmf-sample-test
+    argocd-image-updater.argoproj.io/rmf-core.update-strategy: latest
+    argocd-image-updater.argoproj.io/write-back-method: git
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: rmf-core
+  template:
+    metadata:
+      labels:
+        app: rmf-core
+    spec:
+      containers:
+        - name: rmf-core
+          image: vishalbalajee14/rmf-sample-test:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rmf-core
+  namespace: rmf
+spec:
+  selector:
+    app: rmf-core
+  ports:
+    - port: 80
+      targetPort: 8080
